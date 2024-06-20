@@ -6,7 +6,7 @@ extern "C" {
 
 // ethernet shield mac address
 byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
-IPAddress ip(192, 168, 1, 21);
+IPAddress ip(LOCALHOST);
 EthernetServer server(80);
 EthernetClient httpClient;
 
@@ -16,8 +16,6 @@ int clientAvailable() {
 }
 char clientRead() { return httpClient.read(); }
 char clientPeek() { return httpClient.peek(); }
-
-
 
 void setup() {
   Serial.begin(9600);
@@ -34,8 +32,7 @@ void setup() {
 
 void loop() {
   // handle sensors
-  switch (mode)
-  {
+  switch (mode) {
   case MODE_ACTIVE:
     /* code to read sensors */
     break;
@@ -65,7 +62,7 @@ void loop() {
     } else if (response.code == BAD_REQUEST_400) {
       httpClient.println(F("HTTP/1.1 400 Bad Request"));
       httpClient.println();
-    }  else if (response.code == OK_200) {
+    } else if (response.code == OK_200) {
       httpClient.println(F("HTTP/1.1 200 OK"));
       httpClient.println(F("Content-Type: text/html"));
       httpClient.println();
@@ -78,7 +75,6 @@ void loop() {
           F("HTTP/1.1 500 Internal Server Error"));
       httpClient.println();
     }
-    
 
     Serial.print("response code: ");
     Serial.println(response.code);

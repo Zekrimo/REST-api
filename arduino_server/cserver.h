@@ -2,12 +2,11 @@
 #define cserver_h
 
 #include "stream.h"
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
 
 #define MAX_BUFFER_SIZE 20
-
 
 enum statuscode {
   INTERNAL_SERVER_ERROR_500, // failed to malloc cbuffers
@@ -32,36 +31,33 @@ struct response {
   };
 };
 
-enum currentMode{
+enum currentMode {
   MODE_ACTIVE = 1,
   MODE_PASSIVE = 2,
 };
 
-
-
-
-//buffer for sensor date
+// buffer for sensor date
 typedef struct {
-    int data[MAX_BUFFER_SIZE];
-    int head;
-    int tail;
-    int count;
-    int bufferSize;
+  int data[MAX_BUFFER_SIZE];
+  int head;
+  int tail;
+  int count;
+  int bufferSize;
 } CircularBuffer;
 
-//CircularBuffer sensorBuffer1;
+// CircularBuffer sensorBuffer1;
 
-//CircularBuffer sensorBuffer2;
+// CircularBuffer sensorBuffer2;
 
-//int bufferSize = 10;
+// int bufferSize = 10;
 
-//currentMode = MODE_PASSIVE;
+// currentMode = MODE_PASSIVE;
 
-void initializeBuffer(CircularBuffer *cb);
+void initializeBuffer(CircularBuffer* cb);
 
-void addToBuffer(CircularBuffer *cb, int item);
+void addToBuffer(CircularBuffer* cb, int item);
 
-int pullFromBuffer(CircularBuffer *cb);
+int pullFromBuffer(CircularBuffer* cb);
 
 double getBufferAverage(CircularBuffer* buffer);
 

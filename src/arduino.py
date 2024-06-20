@@ -47,4 +47,4 @@ def get_sensor_statistics(sensor_id, stat):
         return jsonify({'error': 'Statistic not found'}), 404
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    app.run(debug=True, host='0.0.0.0', port=80)
