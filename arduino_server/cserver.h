@@ -1,15 +1,14 @@
 #ifndef CSERVER_H
 #define CSERVER_H
 
-#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define MAX_BUFFER_SIZE 20
 
-enum statuscode
-{
+enum statuscode {
   INTERNAL_SERVER_ERROR_500,
   BAD_REQUEST_400,
   NOT_FOUND_404,
@@ -23,26 +22,22 @@ enum statuscode
   CREATED_201_DELETE_MEASUREMENTS
 };
 
-struct response
-{
+struct response {
   enum statuscode code;
-  union
-  {
+  union {
     double get_avg;
     double get_stdev;
     double get_actual;
   };
 };
 
-enum currentMode
-{
+enum currentMode {
   MODE_ACTIVE = 1,
   MODE_PASSIVE = 2,
 };
 
-typedef struct
-{
-  int *data;
+typedef struct {
+  int* data;
   int head;
   int tail;
   int count;
@@ -53,16 +48,15 @@ extern CircularBuffer sensorBuffer1;
 extern CircularBuffer sensorBuffer2;
 extern enum currentMode currentMode;
 
-void initializeBuffer(CircularBuffer *cb, int bufferSize);
-void addToBuffer(CircularBuffer *cb, int item);
-int pullFromBuffer(CircularBuffer *cb);
-double getBufferAverage(CircularBuffer *buffer);
-double getBufferStandardDeviation(CircularBuffer *buffer);
-int getBufferActual(CircularBuffer *buffer);
-void setBufferSize(CircularBuffer *buffer, int newSize);
+void initializeBuffer(CircularBuffer* cb, int bufferSize);
+void addToBuffer(CircularBuffer* cb, int item);
+int pullFromBuffer(CircularBuffer* cb);
+double getBufferAverage(CircularBuffer* buffer);
+double getBufferStandardDeviation(CircularBuffer* buffer);
+int getBufferActual(CircularBuffer* buffer);
+void setBufferSize(CircularBuffer* buffer, int newSize);
 
-struct stream
-{
+struct stream {
   int (*available)(void);
   char (*read)(void);
   char (*peek)(void);
