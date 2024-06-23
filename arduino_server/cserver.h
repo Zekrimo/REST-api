@@ -53,7 +53,7 @@ void addToBuffer(CircularBuffer* cb, int item);
 int pullFromBuffer(CircularBuffer* cb);
 double getBufferAverage(CircularBuffer* buffer);
 double getBufferStandardDeviation(CircularBuffer* buffer);
-int getBufferActual(CircularBuffer* buffer);
+double getBufferActual(CircularBuffer* buffer);
 void setBufferSize(CircularBuffer* buffer, int newSize);
 
 struct stream {
