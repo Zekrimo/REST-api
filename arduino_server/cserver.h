@@ -48,13 +48,24 @@ extern CircularBuffer sensorBuffer1;
 extern CircularBuffer sensorBuffer2;
 extern enum currentMode currentMode;
 
+// extern double runningTotalSensor1 = 0;
+// extern double runningTotalSensor2 = 0;
+// extern double runningSquaredTotalSensor1 = 0;
+// extern double runningSquaredTotalSensor2 = 0;
+// extern int runningCountSensor1 = 0;
+// extern int runningCountSensor2 = 0;
+
+
 void initializeBuffer(CircularBuffer* cb, int bufferSize);
-void addToBuffer(CircularBuffer* cb, int item);
+void addToBuffer(CircularBuffer *cb, int item, int sensor);
 int pullFromBuffer(CircularBuffer* cb);
 double getBufferAverage(CircularBuffer* buffer);
 double getBufferStandardDeviation(CircularBuffer* buffer);
 double getBufferActual(CircularBuffer* buffer);
-void setBufferSize(CircularBuffer* buffer, int newSize);
+void setBufferSize(CircularBuffer *buffer, int newSize, int sensor);
+double getRunningAverage(int sensor);
+double getRunningStandardDeviation(int sensor);
+void resetRunningStatistics(int sensor);
 
 struct stream {
   int (*available)(void);
