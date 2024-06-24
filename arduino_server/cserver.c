@@ -216,16 +216,20 @@ double getBufferActual(CircularBuffer *buffer)
   {
     return -1.0; // Return -1.0 if the buffer is empty
   }
-
+  printf("Buffer state: ");
   double sum = 0;
   for (int i = 0; i < buffer->count; i++)
   {
     int value =
         buffer
             ->data[(buffer->head + i) % buffer->bufferSize];
+    printf("%d ", value);
     sum += value;
   }
+  printf("\n");
   double average = sum / buffer->count;
+  printf("sum of buffer: %f", sum);
+  printf(" devided by count: %d\n", buffer->count);
   printf("Calculated average: %f\n", average);
   return average;
 }
@@ -375,6 +379,7 @@ struct response handleRequest(struct stream stream)
     else if (strncmp(uri, "/sensors/1/actual", 17) == 0)
     {
       double avg = getBufferActual(&sensorBuffer1);
+      initializeBuffer(&sensorBuffer1, sensorBuffer1.bufferSize);
       printf("GET /sensors/1/actual: %f\n", avg);
       return (struct response){
           .code = OK_200_GET_ACTUAL,
@@ -399,6 +404,7 @@ struct response handleRequest(struct stream stream)
     else if (strncmp(uri, "/sensors/2/actual", 17) == 0)
     {
       double avg = getBufferActual(&sensorBuffer2);
+      initializeBuffer(&sensorBuffer2, sensorBuffer2.bufferSize);
       printf("GET /sensors/2/actual: %f\n", avg);
       return (struct response){
           .code = OK_200_GET_ACTUAL,
