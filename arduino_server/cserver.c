@@ -192,6 +192,10 @@ double getRunningStandardDeviation(int sensor)
     {
       return 0.0;
     }
+    else if (runningCountSensor1 == 0.000000)
+    {
+      return -1;
+    }
     double mean = runningTotalSensor1 / runningCountSensor1;
     double variance = (runningSquaredTotalSensor1 / runningCountSensor1) - (mean * mean);
     return sqrt(variance);
@@ -201,12 +205,17 @@ double getRunningStandardDeviation(int sensor)
     if (runningCountSensor2 < 2)
     {
       return 0.0;
+    } else if (runningCountSensor2 == 0.000000)
+    {
+      return -1;
     }
     double mean = runningTotalSensor2 / runningCountSensor2;
     double variance = (runningSquaredTotalSensor2 / runningCountSensor2) - (mean * mean);
+    printf("Calculated average: %f\n", mean);
+    printf("Calculated variance: %f\n", variance);
     return sqrt(variance);
   }
-  return 0.0;
+  return -1;
 }
 
 // function should return the average of the buffer content
