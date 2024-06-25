@@ -63,14 +63,9 @@ def get_statistics():
     sstot = np.sum((sensor2_values - ybar) ** 2)
     r2 = ssreg / sstot
 
-    result = {
-        'b0': round(coeffs[2], 1),
-        'b1': round(coeffs[1], 1),
-        'b2': round(coeffs[0], 1),
-        'R2': round(r2, 1)
-    }
+    result = f"{coeffs[2]:.1f} {coeffs[1]:.1f} {coeffs[0]:.1f} {r2:.1f}"
 
-    return jsonify(result)
+    return result, 200
 
 @app.route('/statistics', methods=['DELETE'])
 def delete_statistics():
@@ -78,7 +73,7 @@ def delete_statistics():
     cursor = db.cursor()
     cursor.execute('DELETE FROM measurements')
     db.commit()
-    return "All data deleted", 200
+    return "All data deleted", 201
 
 if __name__ == '__main__':
     init_db()
