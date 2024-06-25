@@ -55,14 +55,14 @@ extern enum currentMode currentMode;
 // extern int runningCountSensor1 = 0;
 // extern int runningCountSensor2 = 0;
 
-
 void initializeBuffer(CircularBuffer* cb, int bufferSize);
-void addToBuffer(CircularBuffer *cb, int item, int sensor);
+void addToBuffer(CircularBuffer* cb, int item, int sensor);
 int pullFromBuffer(CircularBuffer* cb);
 double getBufferAverage(CircularBuffer* buffer);
 double getBufferStandardDeviation(CircularBuffer* buffer);
 double getBufferActual(CircularBuffer* buffer);
-void setBufferSize(CircularBuffer *buffer, int newSize, int sensor);
+void setBufferSize(CircularBuffer* buffer, int newSize,
+                   int sensor);
 double getRunningAverage(int sensor);
 double getRunningStandardDeviation(int sensor);
 void resetRunningStatistics(int sensor);
