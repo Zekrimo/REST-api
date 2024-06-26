@@ -1,5 +1,6 @@
 #include "cserver.h"
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,6 +16,11 @@ double runningSquaredTotalSensor2 = 0;
 int runningCountSensor1 = 0;
 int runningCountSensor2 = 0;
 
+bool sensor1BufferFull = false;
+bool sensor2BufferFull = false;
+bool recievedRequest = false;
+bool bufferInitError = false;
+
 void initializeBuffer(CircularBuffer* cb, int bufferSize) {
   if (bufferSize <= 0) {
     printf("Invalid buffer size: %d\n", bufferSize);
@@ -25,6 +31,9 @@ void initializeBuffer(CircularBuffer* cb, int bufferSize) {
   cb->tail = 0;
   cb->count = 0;
   cb->bufferSize = bufferSize;
+
+  sensor1BufferFull = false;
+  sensor2BufferFull = false;
   printf("Buffer initialized with size: %d\n", bufferSize);
 }
 
@@ -73,6 +82,12 @@ void addToBuffer(CircularBuffer* cb, int item, int sensor) {
     cb->data[cb->tail] = item;
     cb->tail = (cb->tail + 1) % cb->bufferSize;
     cb->head = (cb->head + 1) % cb->bufferSize;
+
+    if (sensor == 1 && sensor1BufferFull == false) {
+      sensor1BufferFull = true;
+    } else if (sensor == 2 && sensor2BufferFull == false) {
+      sensor2BufferFull = true;
+    }
   }
   printf(
       "Added %d to buffer. Head: %d, Tail: %d, Count: %d\n",
