@@ -2,8 +2,8 @@ import time
 import requests
 
 # Configuration
-ARDUINO_URL = "http://<arduino_ip>:<arduino_port>"
-RASPBERRY_PI_URL = "http://<raspberry_pi_ip>:<raspberry_pi_port>"
+ARDUINO_URL = "http://192.168.1.21:80"
+RASPBERRY_PI_URL = "192.168.219.134:5000"
 
 def fetch_data_from_arduino(sensor_id):
     try:

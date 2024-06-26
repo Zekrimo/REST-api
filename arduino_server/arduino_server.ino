@@ -1,12 +1,11 @@
 #include <Ethernet.h>
 
-extern "C"
-{
+extern "C" {
 #include "cserver.h"
-  extern bool sensor1BufferFull;
-  extern bool sensor2BufferFull;
-  extern bool recievedRequest;
-  extern bool bufferInitError;
+extern bool sensor1BufferFull;
+extern bool sensor2BufferFull;
+extern bool recievedRequest;
+extern bool bufferInitError;
 }
 
 const int ledPinRed1 = 13;
@@ -24,15 +23,13 @@ EthernetServer server(80);
 EthernetClient httpClient;
 
 // make httpClient methods available as ordinary functions
-int clientAvailable()
-{
+int clientAvailable() {
   return httpClient.connected() && httpClient.available();
 }
 char clientRead() { return httpClient.read(); }
 char clientPeek() { return httpClient.peek(); }
 
-void setup()
-{
+void setup() {
   Serial.begin(9600);
 
   Ethernet.begin(mac, ip);
@@ -41,53 +38,40 @@ void setup()
   Serial.println(Ethernet.localIP());
 }
 
-void loop()
-{
+void loop() {
   httpClient = server.available();
-  if (httpClient)
-  {
+  if (httpClient) {
     Serial.println("new client");
 
     struct stream stream = {clientAvailable, clientPeek,
                             clientRead};
     struct response response = handleRequest(stream);
 
-    if (sensor1BufferFull)
-    {
+    if (sensor1BufferFull) {
       toggleLed(ledPinRed1, true);
-    }
-    else
-    {
+    } else {
       toggleLed(ledPinRed1, false);
     }
 
-    if (sensor2BufferFull)
-    {
+    if (sensor2BufferFull) {
       toggleLed(ledPinRed2, true);
-    }
-    else
-    {
+    } else {
       toggleLed(ledPinRed2, false);
     }
 
-    if (recievedRequest)
-    {
+    if (recievedRequest) {
       timer1 = lastMillis;
       toggleLed(ledPinGreen, true);
       recievedRequest = false;
-    } else if (lastMillis - timer1 > 500)
-    {
+    } else if (lastMillis - timer1 > 500) {
       toggleLed(ledPinGreen, false);
     }
 
-    if (response.code == INTERNAL_SERVER_ERROR_500)
-    {
+    if (response.code == INTERNAL_SERVER_ERROR_500) {
       httpClient.println(
           F("HTTP/1.1 500 Internal Server Error"));
       httpClient.println();
-    }
-    else
-    {
+    } else {
       httpClient.println(
           F("HTTP/1.1 500 Internal Server Error"));
       httpClient.println();
@@ -103,7 +87,6 @@ void loop()
   }
 }
 
-void toggleLed(int pin, bool state)
-{
+void toggleLed(int pin, bool state) {
   digitalWrite(pin, state ? HIGH : LOW);
 }

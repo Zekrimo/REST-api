@@ -23,7 +23,7 @@ bool bufferInitError = false;
 
 void initializeBuffer(CircularBuffer* cb, int bufferSize) {
   if (bufferSize <= 0) {
-    printf("Invalid buffer size: %d\n", bufferSize);
+    // printf("Invalid buffer size: %d\n", bufferSize);
     return;
   }
   cb->data = (int*)malloc(bufferSize * sizeof(int));
@@ -34,7 +34,8 @@ void initializeBuffer(CircularBuffer* cb, int bufferSize) {
 
   sensor1BufferFull = false;
   sensor2BufferFull = false;
-  printf("Buffer initialized with size: %d\n", bufferSize);
+  // printf("Buffer initialized with size: %d\n",
+  // bufferSize);
 }
 
 void addToBuffer(CircularBuffer* cb, int item, int sensor) {
@@ -44,21 +45,23 @@ void addToBuffer(CircularBuffer* cb, int item, int sensor) {
     runningSquaredTotalSensor1 += item * item;
     runningCountSensor1++;
 
-    printf("runningTotalSensor1: %f", runningTotalSensor1);
-    printf(" | runningCountSensor1: %d",
-           runningCountSensor1);
-    printf(" | runningSquaredTotalSensor1: %f\n",
-           runningSquaredTotalSensor1);
+    // printf("runningTotalSensor1: %f",
+    // runningTotalSensor1); printf(" | runningCountSensor1:
+    // %d",
+    //        runningCountSensor1);
+    // printf(" | runningSquaredTotalSensor1: %f\n",
+    //        runningSquaredTotalSensor1);
   } else if (sensor == 2) {
     runningTotalSensor2 += item;
     runningSquaredTotalSensor2 += item * item;
     runningCountSensor2++;
 
-    printf("runningTotalSensor2: %f", runningTotalSensor2);
-    printf(" | runningCountSensor2: %d",
-           runningCountSensor2);
-    printf(" | runningSquaredTotalSensor2: %f\n",
-           runningSquaredTotalSensor2);
+    // printf("runningTotalSensor2: %f",
+    // runningTotalSensor2); printf(" | runningCountSensor2:
+    // %d",
+    //        runningCountSensor2);
+    // printf(" | runningSquaredTotalSensor2: %f\n",
+    //        runningSquaredTotalSensor2);
   }
 
   if (cb->count < cb->bufferSize) {
@@ -89,9 +92,9 @@ void addToBuffer(CircularBuffer* cb, int item, int sensor) {
       sensor2BufferFull = true;
     }
   }
-  printf(
-      "Added %d to buffer. Head: %d, Tail: %d, Count: %d\n",
-      item, cb->head, cb->tail, cb->count);
+  // printf(
+  //     "Added %d to buffer. Head: %d, Tail: %d, Count:
+  //     %d\n", item, cb->head, cb->tail, cb->count);
 }
 
 int pullFromBuffer(CircularBuffer* cb) {
@@ -101,9 +104,9 @@ int pullFromBuffer(CircularBuffer* cb) {
     cb->head = (cb->head + 1) % cb->bufferSize;
     cb->count--;
   }
-  printf("Pulled %d from buffer. Head: %d, Tail: %d, "
-         "Count: %d\n",
-         item, cb->head, cb->tail, cb->count);
+  // printf("Pulled %d from buffer. Head: %d, Tail: %d, "
+  //        "Count: %d\n",
+  //        item, cb->head, cb->tail, cb->count);
   return item;
 }
 
@@ -132,17 +135,19 @@ int pullFromBuffer(CircularBuffer* cb) {
 
 double getRunningAverage(int sensor) {
   if (sensor == 1) {
-    printf("runningTotalSensor1: %f", runningTotalSensor1);
-    printf(" | runningCountSensor1: %d\n",
-           runningCountSensor1);
+    // printf("runningTotalSensor1: %f",
+    // runningTotalSensor1); printf(" | runningCountSensor1:
+    // %d\n",
+    //        runningCountSensor1);
 
     return runningCountSensor1 > 0
                ? runningTotalSensor1 / runningCountSensor1
                : -1.0;
   } else if (sensor == 2) {
-    printf("runningTotalSensor2: %f", runningTotalSensor2);
-    printf(" | runningCountSensor2: %d\n",
-           runningCountSensor2);
+    // printf("runningTotalSensor2: %f",
+    // runningTotalSensor2); printf(" | runningCountSensor2:
+    // %d\n",
+    //        runningCountSensor2);
 
     return runningCountSensor2 > 0
                ? runningTotalSensor2 / runningCountSensor2
@@ -161,8 +166,8 @@ void resetRunningStatistics(int sensor) {
     runningSquaredTotalSensor2 = 0;
     runningCountSensor2 = 0;
   }
-  printf("Reset running statistics for sensor %d\n",
-         sensor);
+  // printf("Reset running statistics for sensor %d\n",
+  //        sensor);
 }
 
 // function should return the standard deviation of all
@@ -221,8 +226,8 @@ double getRunningStandardDeviation(int sensor) {
     double variance =
         (runningSquaredTotalSensor2 / runningCountSensor2) -
         (mean * mean);
-    printf("Calculated average: %f\n", mean);
-    printf("Calculated variance: %f\n", variance);
+    // printf("Calculated average: %f\n", mean);
+    // printf("Calculated variance: %f\n", variance);
     return sqrt(variance);
   }
   return -1;
@@ -233,27 +238,27 @@ double getBufferActual(CircularBuffer* buffer) {
   if (buffer->count == 0) {
     return -1.0; // Return -1.0 if the buffer is empty
   }
-  printf("Buffer state: ");
+  // printf("Buffer state: ");
   double sum = 0;
   for (int i = 0; i < buffer->count; i++) {
     int value =
         buffer
             ->data[(buffer->head + i) % buffer->bufferSize];
-    printf("%d ", value);
+    // printf("%d ", value);
     sum += value;
   }
-  printf("\n");
+  // printf("\n");
   double average = sum / buffer->count;
-  printf("sum of buffer: %f", sum);
-  printf(" devided by count: %d\n", buffer->count);
-  printf("Calculated average: %f\n", average);
+  // printf("sum of buffer: %f", sum);
+  // printf(" devided by count: %d\n", buffer->count);
+  // printf("Calculated average: %f\n", average);
   return average;
 }
 
 void setBufferSize(CircularBuffer* buffer, int newSize,
                    int sensor) {
   if (newSize <= 0) {
-    printf("Invalid buffer size: %d\n", newSize);
+    // printf("Invalid buffer size: %d\n", newSize);
     return;
   }
 
@@ -274,15 +279,15 @@ void setBufferSize(CircularBuffer* buffer, int newSize,
   buffer->head = 0;
   buffer->tail = count % newSize;
 
-  printf("Buffer size set to: %d. Head: %d, Tail: %d, "
-         "Count: %d\n",
-         newSize, buffer->head, buffer->tail,
-         buffer->count);
-  printf("New buffer state: ");
+  // printf("Buffer size set to: %d. Head: %d, Tail: %d, "
+  //        "Count: %d\n",
+  //        newSize, buffer->head, buffer->tail,
+  //        buffer->count);
+  // printf("New buffer state: ");
   for (int i = 0; i < buffer->count; i++) {
-    printf("%d ", buffer->data[i]);
+    // printf("%d ", buffer->data[i]);
   }
-  printf("\n");
+  // printf("\n");
 
   // Reset running statistics if necessary
   if (sensor == 1) {
@@ -293,7 +298,7 @@ void setBufferSize(CircularBuffer* buffer, int newSize,
 }
 
 struct response handleRequest(struct stream stream) {
-  printf("\n! Handling request : START\n");
+  // printf("\n! Handling request : START\n");
 
   char buffer[1024] = {0};
   int bufferIndex = 0;
@@ -309,25 +314,31 @@ struct response handleRequest(struct stream stream) {
 
   // Read the request line
   char* line = strtok(buffer, "\r\n");
-  char method[10], uri[50], protocol[10];
-  sscanf(line, "%s %s %s", method, uri, protocol);
+  // char method[10], uri[50], protocol[10];
+  // sscanf(line, "%s %s %s", method, uri, protocol);
 
-  // Print data
-  printf("Method: %s, URI: %s, Protocol: %s\n", method, uri,
-         protocol);
+  // // Print data
+  // printf("Method: %s, URI: %s, Protocol: %s\n", method,
+  // uri,
+  //        protocol);
 
   char* header = strtok(NULL, "\r\n\r\n");
   char* body = strtok(NULL, "\0");
   int contentLength = header ? atoi(header + 16) : 0;
 
-  printf("Header: %s\n", header);
-  printf("Content Length int value: %d\n", contentLength);
+  char* method = strtok(line, " ");
+  char* uri = strtok(NULL, " ");
+  char* protocol = strtok(NULL, " ");
+
+  // printf("Header: %s\n", header);
+  // printf("Content Length int value: %d\n",
+  // contentLength);
 
   if (strcmp(method, "PUT") == 0) {
     if (strcmp(uri, "/config/mode") == 0) {
       currentMode =
           MODE_PASSIVE; // Adjust according to body content
-      printf("Set mode to passive\n");
+      // printf("Set mode to passive\n");
       return (struct response){
           .code = CREATED_201_PUT_MODE_PASSIVE};
     } else if (strcmp(uri, "/config/cbuffsize") == 0) {
@@ -336,7 +347,7 @@ struct response handleRequest(struct stream stream) {
                     1); // example size
       setBufferSize(&sensorBuffer2, newSize,
                     2); // example size
-      printf("Set circular buffer sizes\n");
+      // printf("Set circular buffer sizes\n");
       return (struct response){
           .code = CREATED_201_PUT_CBUFFSIZE};
     }
@@ -345,14 +356,14 @@ struct response handleRequest(struct stream stream) {
       initializeBuffer(&sensorBuffer1,
                        sensorBuffer1.bufferSize);
       resetRunningStatistics(1);
-      printf("Deleted measurements for sensor 1\n");
+      // printf("Deleted measurements for sensor 1\n");
       return (struct response){
           .code = CREATED_201_DELETE_MEASUREMENTS};
     } else if (strncmp(uri, "/sensors/2", 10) == 0) {
       initializeBuffer(&sensorBuffer2,
                        sensorBuffer2.bufferSize);
       resetRunningStatistics(2);
-      printf("Deleted measurements for sensor 2\n");
+      // printf("Deleted measurements for sensor 2\n");
       return (struct response){
           .code = CREATED_201_DELETE_MEASUREMENTS};
     }
@@ -362,13 +373,15 @@ struct response handleRequest(struct stream stream) {
     if (strncmp(uri, "/sensors/1", 10) == 0) {
       addToBuffer(&sensorBuffer1, value,
                   1); // Use value from body
-      printf("Posted measurement %d to sensor 1\n", value);
+      // printf("Posted measurement %d to sensor 1\n",
+      // value);
       return (struct response){
           .code = CREATED_201_POST_MEASUREMENT};
     } else if (strncmp(uri, "/sensors/2", 10) == 0) {
       addToBuffer(&sensorBuffer2, value,
                   2); // Use value from body
-      printf("Posted measurement %d to sensor 2\n", value);
+      // printf("Posted measurement %d to sensor 2\n",
+      // value);
       return (struct response){
           .code = CREATED_201_POST_MEASUREMENT};
     } else {
@@ -377,36 +390,36 @@ struct response handleRequest(struct stream stream) {
   } else if (strcmp(method, "GET") == 0) {
     if (strncmp(uri, "/sensors/1/avg", 14) == 0) {
       double avg = getRunningAverage(1);
-      printf("GET /sensors/1/avg: %f\n", avg);
+      // printf("GET /sensors/1/avg: %f\n", avg);
       return (struct response){.code = OK_200_GET_AVG,
                                .get_avg = avg};
     } else if (strncmp(uri, "/sensors/1/stdev", 16) == 0) {
       double stdev = getRunningStandardDeviation(1);
-      printf("GET /sensors/1/stdev: %f\n", stdev);
+      // printf("GET /sensors/1/stdev: %f\n", stdev);
       return (struct response){.code = OK_200_GET_STDEV,
                                .get_stdev = stdev};
     } else if (strncmp(uri, "/sensors/1/actual", 17) == 0) {
       double avg = getBufferActual(&sensorBuffer1);
       initializeBuffer(&sensorBuffer1,
                        sensorBuffer1.bufferSize);
-      printf("GET /sensors/1/actual: %f\n", avg);
+      // printf("GET /sensors/1/actual: %f\n", avg);
       return (struct response){.code = OK_200_GET_ACTUAL,
                                .get_actual = avg};
     } else if (strncmp(uri, "/sensors/2/avg", 14) == 0) {
       double avg = getRunningAverage(2);
-      printf("GET /sensors/2/avg: %f\n", avg);
+      // printf("GET /sensors/2/avg: %f\n", avg);
       return (struct response){.code = OK_200_GET_AVG,
                                .get_avg = avg};
     } else if (strncmp(uri, "/sensors/2/stdev", 16) == 0) {
       double stdev = getRunningStandardDeviation(2);
-      printf("GET /sensors/2/stdev: %f\n", stdev);
+      // printf("GET /sensors/2/stdev: %f\n", stdev);
       return (struct response){.code = OK_200_GET_STDEV,
                                .get_stdev = stdev};
     } else if (strncmp(uri, "/sensors/2/actual", 17) == 0) {
       double avg = getBufferActual(&sensorBuffer2);
       initializeBuffer(&sensorBuffer2,
                        sensorBuffer2.bufferSize);
-      printf("GET /sensors/2/actual: %f\n", avg);
+      // printf("GET /sensors/2/actual: %f\n", avg);
       return (struct response){.code = OK_200_GET_ACTUAL,
                                .get_actual = avg};
     } else {
@@ -414,7 +427,7 @@ struct response handleRequest(struct stream stream) {
     }
   } else {
 
-    printf("Returning 500 Internal Server Error\n");
+    // printf("Returning 500 Internal Server Error\n");
     return (struct response){.code = BAD_REQUEST_400};
   }
 }
