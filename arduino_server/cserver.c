@@ -297,6 +297,24 @@ void setBufferSize(CircularBuffer* buffer, int newSize,
   }
 }
 
+// struct response handleRequest(struct stream stream) {
+//   struct response resp = {.code = INTERNAL_SERVER_ERROR_500};
+
+//     char buffer[256] = {0};
+//   int bufferIndex = 0;
+
+//     while (stream.available() > 0 &&
+//          bufferIndex < 255 ) {
+//     buffer[bufferIndex++] = stream.read();
+//   }
+//   buffer[bufferIndex] = '\0';
+
+//   // Print the received request
+//   logmsg(buffer);
+
+//   return resp;
+// }
+
 struct response handleRequest(struct stream stream) {
   // printf("\n! Handling request : START\n");
   struct response response;

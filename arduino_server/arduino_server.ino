@@ -48,7 +48,9 @@ void sendResponse(const char* status,
 }
 
 // allow to log msg in C code to print on serial monitor
-void serialLog(const char* msg) { Serial.print(msg); }
+void serialLog(const char* msg) {
+  Serial.print(msg);
+}
 
 void setup() {
   Serial.begin(9600);
@@ -60,15 +62,31 @@ void setup() {
   initLogger(serialLog);
 }
 
-void loop() 
-{
+void loop() {
   httpClient = server.available();
-  if (httpClient) 
-  {
+  if (httpClient) {
     Serial.println("new client");
 
-    struct stream stream = { clientAvailable, clientPeek,
-                             clientRead };
+    char buffer[256] = { 0 };
+    int bufferIndex = 0;
+
+
+    struct stream stream = { clientAvailable,
+                             clientRead, clientPeek };
+
+    // while (clientRead > 0 && bufferIndex < 255) {
+    //   buffer[bufferIndex++] = stream.read();
+    // }
+    // buffer[bufferIndex] = '\0';
+    // Serial.println(buffer);
+    // Serial.println();
+
+
+
+
+
+
+
     struct response response = handleRequest(stream);
 
     // if (sensor1BufferFull) {
