@@ -72,21 +72,67 @@ void loop() {
           F("HTTP/1.1 500 Internal Server Error"));
       httpClient.println();
     } else {
-      httpClient.println(
-          F("HTTP/1.1 500 Internal Server Error"));
-      httpClient.println();
+
+      // Directly sending response based on the status code
+      switch (response.code) {
+      case OK_200_GET_AVG:
+        sendResponse("200 OK", String(response.get_avg));
+        break;
+      case OK_200_GET_STDEV:
+        sendResponse("200 OK", String(response.get_stdev));
+        break;
+      case OK_200_GET_ACTUAL:
+        sendResponse("200 OK", String(response.get_actual));
+        break;
+      case CREATED_201_PUT_MODE_ACTIVE:
+        sendResponse("201 Created", "");
+        break;
+      case CREATED_201_PUT_MODE_PASSIVE:
+        sendResponse("201", "");
+        break;
+      case CREATED_201_PUT_CBUFFSIZE:
+        sendResponse("201 Created", "");
+        break;
+      case CREATED_201_POST_MEASUREMENT:
+        sendResponse("201 Created", "");
+        break;
+      case CREATED_201_DELETE_MEASUREMENTS:
+        sendResponse("201 Created", "");
+        break;
+      case BAD_REQUEST_400:
+        sendResponse("400 Bad Request", "");
+        break;
+      case NOT_FOUND_404:
+        sendResponse("404 Not Found", "");
+        break;
+      case INTERNAL_SERVER_ERROR_500:
+      default:
+        sendResponse(
+            "DEFAULT MESSAGE 500 Internal Server Error",
+            "");
+        break;
+      }
+
+      Serial.print("response code: ");
+      Serial.println(response.code);
+
+      delay(1);
+      lastMillis++;
+      httpClient.stop(); // close connection
+      Serial.println("client disconnected");
     }
-
-    Serial.print("response code: ");
-    Serial.println(response.code);
-
-    delay(1);
-    lastMillis++;
-    httpClient.stop(); // close connection
-    Serial.println("client disconnected");
   }
-}
 
-void toggleLed(int pin, bool state) {
-  digitalWrite(pin, state ? HIGH : LOW);
-}
+  void toggleLed(int pin, bool state) {
+    digitalWrite(pin, state ? HIGH : LOW);
+  }
+
+  void sendResponse(const char* status,
+                    const String& body) {
+    httpClient.println(String("HTTP/1.0 ") + status);
+    httpClient.println(F("Content-Type: text/plain"));
+    httpClient.print(F("Content-Length: "));
+    httpClient.println(body.length());
+    httpClient.println();
+    httpClient.print(body);
+  }

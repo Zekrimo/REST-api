@@ -299,8 +299,8 @@ void setBufferSize(CircularBuffer* buffer, int newSize,
 
 struct response handleRequest(struct stream stream) {
   // printf("\n! Handling request : START\n");
-
-  char buffer[1024] = {0};
+  struct response response;
+  char buffer[256] = {0};
   int bufferIndex = 0;
 
   while (stream.available() > 0 &&
@@ -364,8 +364,8 @@ struct response handleRequest(struct stream stream) {
                        sensorBuffer2.bufferSize);
       resetRunningStatistics(2);
       // printf("Deleted measurements for sensor 2\n");
-      return (struct response){
-          .code = CREATED_201_DELETE_MEASUREMENTS};
+      response.code = CREATED_201_DELETE_MEASUREMENTS;
+      return response;
     }
   } else if (strcmp(method, "POST") == 0) {
     int value = atoi(body); // Get the value from the body
