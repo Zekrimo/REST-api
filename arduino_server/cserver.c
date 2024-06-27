@@ -298,7 +298,8 @@ void setBufferSize(CircularBuffer* buffer, int newSize,
 }
 
 // struct response handleRequest(struct stream stream) {
-//   struct response resp = {.code = INTERNAL_SERVER_ERROR_500};
+//   struct response resp = {.code =
+//   INTERNAL_SERVER_ERROR_500};
 
 //     char buffer[256] = {0};
 //   int bufferIndex = 0;
@@ -450,13 +451,13 @@ struct response handleRequest(struct stream stream) {
   }
 }
 
-void (*logfunction)(const char*);
-void initLogger(void (*func)(const char*))
-{
-  logfunction = func;
-}
+// void (*logfunction)(const char*);
+// void initLogger(void (*func)(const char*))
+// {
+//   logfunction = func;
+// }
 
-void logmsg(char* msg)
-{
-  if (logfunction) { logfunction(msg); }
-}
+// void logmsg(char* msg)
+// {
+//   if (logfunction) { logfunction(msg); }
+// }
