@@ -60,7 +60,6 @@ void setup() {
   Serial.print("server is at ");
   Serial.println(Ethernet.localIP());
   initLogger(serialLog);
-  
 }
 
 void loop() {
