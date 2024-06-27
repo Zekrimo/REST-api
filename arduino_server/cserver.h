@@ -75,4 +75,8 @@ struct stream {
 
 struct response handleRequest(struct stream stream);
 
+void (*logfunction)(const char*);
+void initLogger(void (*func)(const char*));
+void logmsg(char* msg);
+
 #endif

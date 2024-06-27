@@ -431,3 +431,14 @@ struct response handleRequest(struct stream stream) {
     return (struct response){.code = BAD_REQUEST_400};
   }
 }
+
+void (*logfunction)(const char*);
+void initLogger(void (*func)(const char*))
+{
+  logfunction = func;
+}
+
+void logmsg(char* msg)
+{
+  if (logfunction) { logfunction(msg); }
+}
