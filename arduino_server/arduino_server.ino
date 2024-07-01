@@ -43,7 +43,7 @@ void sendResponse(const char* status, const String& body) {
 }
 
 // allow to log msg in C code to print on serial monitor
-void serialLog(const char* msg) { Serial.print(msg); }
+//void serialLog(const int* msg) { Serial.print(msg); }
 
 void setup() {
   Serial.begin(9600);
@@ -101,19 +101,20 @@ void loop() {
       httpClient.println();
     } else {
 
+      double val;
       // Directly sending response based on the status code
       switch (response.code) {
       case OK_200_GET_AVG:
         sendResponse("200 OK", String(response.get_avg));
-        Serial.println(response.get_avg);
+        val = response.get_avg;
         break;
       case OK_200_GET_STDEV:
         sendResponse("200 OK", String(response.get_stdev));
-        Serial.println(response.get_stdev);
+        val = response.get_stdev;
         break;
       case OK_200_GET_ACTUAL:
         sendResponse("200 OK", String(response.get_actual));
-        Serial.println(response.get_actual);
+        val = response.get_actual;
         break;
       case CREATED_201_PUT_MODE_ACTIVE:
         sendResponse("201 Created", "");
@@ -146,6 +147,7 @@ void loop() {
 
       Serial.print("response code: ");
       Serial.println(response.code);
+      Serial.println(val);
 
       delay(1);
       lastMillis++;

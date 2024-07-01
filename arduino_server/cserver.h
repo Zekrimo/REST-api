@@ -56,7 +56,7 @@ extern enum currentMode currentMode;
 // extern int runningCountSensor2 = 0;
 
 void initializeBuffer(CircularBuffer* cb, int bufferSize);
-void addToBuffer(CircularBuffer* cb, int item, int sensor);
+void addToBuffer(CircularBuffer* cb, long long int item, int sensor);
 int pullFromBuffer(CircularBuffer* cb);
 double getBufferAverage(CircularBuffer* buffer);
 double getBufferStandardDeviation(CircularBuffer* buffer);
@@ -75,8 +75,8 @@ struct stream {
 
 struct response handleRequest(struct stream stream);
 
-// void (*logfunction)(const char*);
-// void initLogger(void (*func)(const char*));
-// void logmsg(char* msg);
+// void (*logfunction)(const int*);
+// void initLogger(void (*func)(const int*));
+// void logmsg(int* msg);
 
 #endif
