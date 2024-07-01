@@ -105,12 +105,15 @@ void loop() {
       switch (response.code) {
       case OK_200_GET_AVG:
         sendResponse("200 OK", String(response.get_avg));
+        Serial.println(response.get_avg);
         break;
       case OK_200_GET_STDEV:
         sendResponse("200 OK", String(response.get_stdev));
+        Serial.println(response.get_stdev);
         break;
       case OK_200_GET_ACTUAL:
         sendResponse("200 OK", String(response.get_actual));
+         Serial.println(response.get_actual);
         break;
       case CREATED_201_PUT_MODE_ACTIVE:
         sendResponse("201 Created", "");
