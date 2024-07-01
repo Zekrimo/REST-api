@@ -17,7 +17,7 @@ int runningCountSensor2 = 0;
 
 void initializeBuffer(CircularBuffer* cb, int bufferSize) {
   if (bufferSize <= 0) {
-    printf("Invalid buffer size: %d\n", bufferSize);
+    //printf("Invalid buffer size: %d\n", bufferSize);
     return;
   }
   cb->data = (int*)malloc(bufferSize * sizeof(int));
@@ -25,7 +25,7 @@ void initializeBuffer(CircularBuffer* cb, int bufferSize) {
   cb->tail = 0;
   cb->count = 0;
   cb->bufferSize = bufferSize;
-  printf("Buffer initialized with size: %d\n", bufferSize);
+ // printf("Buffer initialized with size: %d\n", bufferSize);
 }
 
 void addToBuffer(CircularBuffer* cb, int item, int sensor) {
@@ -76,9 +76,9 @@ void addToBuffer(CircularBuffer* cb, int item, int sensor) {
     cb->tail = (cb->tail + 1) % cb->bufferSize;
     cb->head = (cb->head + 1) % cb->bufferSize;
   }
-  printf(
-      "Added %d to buffer. Head: %d, Tail: %d, Count: %d\n",
-      item, cb->head, cb->tail, cb->count);
+  // printf(
+  //     "Added %d to buffer. Head: %d, Tail: %d, Count: %d\n",
+  //     item, cb->head, cb->tail, cb->count);
 }
 
 int pullFromBuffer(CircularBuffer* cb) {

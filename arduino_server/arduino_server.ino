@@ -52,7 +52,7 @@ void setup() {
   server.begin();
   Serial.print("server is at ");
   Serial.println(Ethernet.localIP());
-  initLogger(serialLog);
+  //initLogger(serialLog);
 }
 
 void loop() {
