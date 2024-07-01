@@ -43,7 +43,7 @@ void sendResponse(const char* status, const String& body) {
 }
 
 // allow to log msg in C code to print on serial monitor
-//void serialLog(const int* msg) { Serial.print(msg); }
+// void serialLog(const int* msg) { Serial.print(msg); }
 
 void setup() {
   Serial.begin(9600);
@@ -52,7 +52,7 @@ void setup() {
   server.begin();
   Serial.print("server is at ");
   Serial.println(Ethernet.localIP());
-  //initLogger(serialLog);
+  // initLogger(serialLog);
 }
 
 void loop() {
