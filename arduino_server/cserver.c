@@ -41,7 +41,7 @@ void initializeBuffer(CircularBuffer* cb, int bufferSize) {
 void addToBuffer(CircularBuffer* cb, long long int item,
                  int sensor) {
 
-  printf("Adding %lld to buffer\n", item);
+  //printf("Adding %lld to buffer\n", item);
 
   // Update running statistics
   if (sensor == 1) {
@@ -52,12 +52,12 @@ void addToBuffer(CircularBuffer* cb, long long int item,
     runningSquaredTotalSensor1 += result;
     runningCountSensor1++;
 
-    printf("Running total sensor 1: %lld\n",
-           runningTotalSensor1);
-    printf("Running squared total sensor 1: %lld\n",
-           runningSquaredTotalSensor1);
-    printf("Running count sensor 1: %d\n",
-           runningCountSensor1);
+    // printf("Running total sensor 1: %lld\n",
+    //        runningTotalSensor1);
+    // printf("Running squared total sensor 1: %lld\n",
+    //        runningSquaredTotalSensor1);
+    // printf("Running count sensor 1: %d\n",
+    //        runningCountSensor1);
   } else if (sensor == 2) {
     runningTotalSensor2 += item;
     long long int val1 = item;
@@ -66,12 +66,12 @@ void addToBuffer(CircularBuffer* cb, long long int item,
     runningSquaredTotalSensor2 += result;
     runningCountSensor2++;
 
-    printf("Running total sensor 2: %lld\n",
-           runningTotalSensor2);
-    printf("Running squared total sensor 2: %lld\n",
-           runningSquaredTotalSensor2);
-    printf("Running count sensor 2: %d\n",
-           runningCountSensor2);
+    // printf("Running total sensor 2: %lld\n",
+    //        runningTotalSensor2);
+    // printf("Running squared total sensor 2: %lld\n",
+    //        runningSquaredTotalSensor2);
+    // printf("Running count sensor 2: %d\n",
+    //        runningCountSensor2);
   }
 
   if (cb->count < cb->bufferSize) {
@@ -94,9 +94,9 @@ void addToBuffer(CircularBuffer* cb, long long int item,
     }
   }
   // print full buffer data
-  for (int i = 0; i < cb->count; i++) {
-    printf("Buffer data: %d\n", cb->data[i]);
-  }
+  // for (int i = 0; i < cb->count; i++) {
+  //   printf("Buffer data: %d\n", cb->data[i]);
+  // }
 }
 
 int pullFromBuffer(CircularBuffer* cb) {
@@ -123,7 +123,7 @@ double getRunningAverage(int sensor) {
       count = runningCountSensor1;
 
       double avg = total / count;
-      printf("Running average sensor 1: %f\n", avg);
+      //printf("Running average sensor 1: %f\n", avg);
       return avg;
     }
 
@@ -137,7 +137,7 @@ double getRunningAverage(int sensor) {
       count = runningCountSensor2;
 
       double avg = total / count;
-      printf("Running average sensor 2: %f\n", avg);
+      //printf("Running average sensor 2: %f\n", avg);
       return avg;
     }
 
@@ -158,8 +158,8 @@ void resetRunningStatistics(int sensor) {
     runningSquaredTotalSensor2 = 0;
     runningCountSensor2 = 0;
   }
-  printf("Reset running statistics for sensor %d\n",
-         sensor);
+  // printf("Reset running statistics for sensor %d\n",
+  //        sensor);
 }
 
 double getRunningStandardDeviation(int sensor) {
@@ -185,13 +185,13 @@ double getRunningStandardDeviation(int sensor) {
         (runningSquaredTotalSensor1 / runningCountSensor1) -
         (mean * mean);
 
-    printf("Running squared total: %lld\n",
-           runningSquaredTotalSensor1);
-    printf("Running total: %lld\n", runningTotalSensor1);
-    printf("Running count: %d\n", runningCountSensor1);
-    printf("Val: %lld\n", val);
-    printf("Result: %f\n", result);
-    printf("Standard deviation: %f\n", sqrt(result));
+    // printf("Running squared total: %lld\n",
+    //        runningSquaredTotalSensor1);
+    // printf("Running total: %lld\n", runningTotalSensor1);
+    // printf("Running count: %d\n", runningCountSensor1);
+    // printf("Val: %lld\n", val);
+    // printf("Result: %f\n", result);
+    // printf("Standard deviation: %f\n", sqrt(result));
 
     return sqrt(variance);
   } else if (sensor == 2) {
