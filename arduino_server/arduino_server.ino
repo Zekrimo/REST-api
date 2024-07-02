@@ -11,10 +11,10 @@ extern "C" {
   extern CircularBuffer sensorBuffer2;
 }
 
-const int ledPinRed1 = 13;
-const int ledPinRed2 = 11;
-const int ledPinGreen = 12;
-const int ledPinYellow = 10;
+const int ledPinRed1 = 2;
+const int ledPinRed2 = 4;
+const int ledPinGreen = 6;
+const int ledPinYellow = 8;
 
 long long unsigned int lastMillis = 0;
 long long unsigned int timer1 = 0;
@@ -40,7 +40,7 @@ void toggleLed(int pin, bool state) {
   digitalWrite(pin, state ? HIGH : LOW);
 }
 
-const byte interruptPin = 2;
+const byte interruptPin = 10;
 volatile byte state = LOW;
 
 

@@ -208,6 +208,8 @@ void setBufferSize(CircularBuffer* buffer, int newSize,
 }
 
 struct response handleRequest(struct stream stream) {
+
+  bool recievedRequest = true;
   // printf("\n! Handling request : START\n");
   struct response response;
   char buffer[256] = { 0 };
