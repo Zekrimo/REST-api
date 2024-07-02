@@ -100,7 +100,7 @@ void loop() {
     } else if (lastMillis - timer1 > 50) {
       toggleLed(ledPinGreen, false);
     }
-    //Serial.println(lastMillis - timer1 > 50);
+    // Serial.println(lastMillis - timer1 > 50);
 
     if (response.code == INTERNAL_SERVER_ERROR_500) {
       httpClient.println(

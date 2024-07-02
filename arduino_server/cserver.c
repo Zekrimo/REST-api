@@ -55,7 +55,6 @@ void addToBuffer(CircularBuffer* cb, long long int item,
     long long int result = (val1 * val2);
     runningSquaredTotalSensor1 += result;
     runningCountSensor1++;
-
   } else if (sensor == 2) {
     runningTotalSensor2 += item;
     long long int val1 = item;
@@ -252,6 +251,9 @@ struct response handleRequest(struct stream stream) {
                     2); // example size
       return (struct response){
           .code = CREATED_201_PUT_CBUFFSIZE};
+    } else {
+      return (struct response){
+          .code = BAD_REQUEST_400};
     }
   } else if (strcmp(method, "DELETE") == 0) {
     if (strncmp(uri, "/sensors/1", 10) == 0) {
@@ -269,7 +271,6 @@ struct response handleRequest(struct stream stream) {
     } else {
       return (struct response){.code = NOT_FOUND_404};
     }
-
   } else if (strcmp(method, "POST") == 0) {
     int value = atoi(body); // Get the value from the body
 
