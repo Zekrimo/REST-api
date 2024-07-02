@@ -1,6 +1,10 @@
 #ifndef CSERVER_H
 #define CSERVER_H
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunused-function"
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,17 +52,10 @@ extern CircularBuffer sensorBuffer1;
 extern CircularBuffer sensorBuffer2;
 extern enum currentMode currentMode;
 
-// extern double runningTotalSensor1 = 0;
-// extern double runningTotalSensor2 = 0;
-// extern double runningSquaredTotalSensor1 = 0;
-// extern double runningSquaredTotalSensor2 = 0;
-// extern int runningCountSensor1 = 0;
-// extern int runningCountSensor2 = 0;
-
 void initializeBuffer(CircularBuffer* cb, int bufferSize);
 void addToBuffer(CircularBuffer* cb, long long int item,
                  int sensor);
-int pullFromBuffer(CircularBuffer* cb);
+// int pullFromBuffer(CircularBuffer* cb);
 double getBufferAverage(CircularBuffer* buffer);
 double getBufferStandardDeviation(CircularBuffer* buffer);
 double getBufferActual(CircularBuffer* buffer);
@@ -75,6 +72,7 @@ struct stream {
   char (*peek)(void);
 };
 
-struct response handleRequest(struct stream stream);
+struct response
+handleRequest(__attribute__((unused)) struct stream stream);
 
 #endif

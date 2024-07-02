@@ -1,4 +1,4 @@
 PUT /config/mode HTTP/1.0
-Content-Length: 7
+Content-Length: 6
 
-passive
+active

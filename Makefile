@@ -1,4 +1,4 @@
-CFLAGS=-std=c99 -Wall `pkg-config --cflags glib-2.0` -D NDEBUG
+CFLAGS=-std=c99 -Wall -Wconversion `pkg-config --cflags glib-2.0` -D NDEBUG
 LDLIBS=`pkg-config --libs glib-2.0` -lm
 
 # Deze code hoort bij de parseropdracht. Het is een gedeeltelijke
