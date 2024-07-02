@@ -67,6 +67,7 @@ void setBufferSize(CircularBuffer* buffer, int newSize,
 double getRunningAverage(int sensor);
 double getRunningStandardDeviation(int sensor);
 void resetRunningStatistics(int sensor);
+void reset();
 
 struct stream {
   int (*available)(void);
@@ -75,9 +76,5 @@ struct stream {
 };
 
 struct response handleRequest(struct stream stream);
-
-// void (*logfunction)(const int*);
-// void initLogger(void (*func)(const int*));
-// void logmsg(int* msg);
 
 #endif
