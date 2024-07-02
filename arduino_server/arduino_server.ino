@@ -11,10 +11,10 @@ extern CircularBuffer sensorBuffer1;
 extern CircularBuffer sensorBuffer2;
 }
 
-const int ledPinRed1 = 13;
-const int ledPinRed2 = 11;
-const int ledPinGreen = 12;
-const int ledPinYellow = 10;
+const int ledPinRed1 = 2;
+const int ledPinRed2 = 4;
+const int ledPinGreen = 6;
+const int ledPinYellow = 8;
 
 long long unsigned int lastMillis = 0;
 long long unsigned int timer1 = 0;
@@ -36,7 +36,7 @@ void toggleLed(int pin, bool state) {
   digitalWrite(pin, state ? HIGH : LOW);
 }
 
-const byte interruptPin = 2;
+const byte interruptPin = 10;
 volatile byte state = LOW;
 
 void sendResponse(const char* status, const String& body) {
@@ -97,9 +97,10 @@ void loop() {
       timer1 = lastMillis;
       toggleLed(ledPinGreen, true);
       recievedRequest = false;
-    } else if (lastMillis - timer1 > 500) {
+    } else if (lastMillis - timer1 > 50) {
       toggleLed(ledPinGreen, false);
     }
+    //Serial.println(lastMillis - timer1 > 50);
 
     if (response.code == INTERNAL_SERVER_ERROR_500) {
       httpClient.println(
